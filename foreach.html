@@ -1,0 +1,79 @@
+<style>
+	.item { border: 1px solid blue; }
+</style>
+<script>
+	var Item = function(text) {
+		var template = document.querySelector('#item');
+		var dom = template.content.cloneNode(true);//document.importNode(template.content, true);
+		var $li = dom.querySelector('li');
+
+		$li.innerText = text;
+
+		// rerender item
+		setTimeout(function() {
+			$li.innerText = text + ' later ....';
+		}, 0);
+
+		return dom;
+	}
+</script>
+<template id="item">
+	<li class="item"></li>
+</template>
+
+
+<style>
+	.list { border: 1px solid green; }
+</style>
+<script>
+	var List = function(title, items) {
+		var template = document.querySelector('#list');
+		var dom = document.importNode(template.content, true);
+		var $title = dom.querySelector('.list-title');
+
+		$title.innerText = title;
+
+		for(item of items) {
+			dom.querySelector('ul').appendChild(Item(item));
+		}
+
+		return dom;
+	}
+
+	var ListItem = function() {
+
+	}
+</script>
+<template id="list">
+	<div class="list">
+		<h3 class="list-title"></h3>
+		<ul></ul>
+	</div>
+</template>
+
+
+<style>
+	#app { border: 1px solid red; }
+</style>
+<div id="app"></div>
+<script>
+	// app
+
+	var list1 = [1,2,3,4];
+	var list2 = [2,1,2,3,4];
+	var list3 = [5,1,2,3,4];
+
+	document.querySelector('#app').appendChild(List("my list 1", list1));
+	document.querySelector('#app').appendChild(List("my list 2", list2));
+
+
+	// rerender list
+	setTimeout(function() {
+		document.querySelector('#app').replaceChild(
+			List("my list 3", list3),
+			document.querySelectorAll('.list')[1]
+		);
+	}, 0);
+
+</script>
+</body>
