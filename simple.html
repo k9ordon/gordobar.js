@@ -1,0 +1,31 @@
+<template id="yoloTemplate">
+	<div class="yolo">
+		<h3>Init h3</h3>
+	  <button>replace</button>
+	</div>
+</template>
+
+
+<div id="app"></div>
+
+<style>
+#app { border: 1px solid red; }
+.yolo { border: 1px solid green; }
+</style>
+
+<script>
+
+	var yoloTemplate = function(h3) {
+		var template = document.querySelector('#yoloTemplate');
+
+		var dom = document.importNode(template.content, true);
+		dom.querySelector('h3').innerText = h3;
+
+		return dom;
+	}
+
+	document.querySelector('#app').appendChild(yoloTemplate("yolo1"));
+	document.querySelector('#app').appendChild(yoloTemplate("yolo2"))
+
+</script>
+</body>
